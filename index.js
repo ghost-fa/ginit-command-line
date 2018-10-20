@@ -2,7 +2,8 @@ const chalk = require('chalk');
 const clear = require('clear');
 const figlet = require('figlet');
 const files = require('./lib/files');
-const inquirer = require('./lib/inquirer');
+// const inquirer = require('./lib/inquirer');
+const github = require('./lib/github');
 console.log(
   chalk.yellow(figlet.textSync('ginit', { horizontalLayout: 'full' }))
 );
@@ -12,9 +13,20 @@ if (files.directoryExists('.git')) {
   process.exit();
 }
 
+// const run = async () => {
+//   const credentials = await inquirer.askGithubCredentials();
+//   console.log(credentials);
+// };
+//
+// run();
+
 const run = async () => {
-  const credentials = await inquirer.askGithubCredentials();
-  console.log(credentials);
+  let token = await github.getStoredGithubToken();
+  if (!token) {
+    await github.setGithubCredentials();
+    token = await github.registerNewToken();
+  }
+  console.log(token);
 };
 
 run();
