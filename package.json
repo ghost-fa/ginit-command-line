@@ -12,6 +12,9 @@
   ],
   "author": "Fayad Alkhadra",
   "license": "ISC",
+  "bin": {
+    "ginit": "./index.js"
+  },
   "dependencies": {
     "@octokit/rest": "^15.15.1",
     "chalk": "^2.4.1",
